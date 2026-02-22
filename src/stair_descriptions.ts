@@ -1,0 +1,22 @@
+export const STAIR_DESCRIPTIONS = [
+  "The stairs spiral down into a darkness so absolute it feels like a physical weight on your chest.",
+  "A narrow, rickety flight of wooden steps that groan under your weight, smelling of rot and old secrets.",
+  "Stone steps worn smooth by centuries of footsteps. You can hear a faint, rhythmic chanting coming from below.",
+  "A grand staircase covered in a tattered red carpet. It looks inviting, which is the most suspicious thing about it.",
+  "The stairs are slick with a viscous, green slime. You'll have to be careful not to slip into the abyss.",
+  "A spiral staircase made of bone. It rattles as you step on it, as if the structure itself is shivering.",
+  "These stairs seem to shift and change angle when you look away. Going down feels like walking into a migraine.",
+  "A simple set of stone steps, but the air gets noticeably colder with each step you take.",
+  "The staircase is lined with statues of weeping angels. You're pretty sure they weren't there a moment ago.",
+  "A metal staircase that clangs loudly with every step, announcing your presence to whatever lurks below.",
+  "The steps are carved directly into the living rock, which pulses with a faint, bioluminescent glow.",
+  "A wooden ladder leading down into a hole in the floor. It looks unstable, but it's the only way forward.",
+  "The stairs are covered in strange, glowing runes that seem to writhe and twist as you approach.",
+  "A set of glass stairs that reveal a terrifying drop beneath. Don't look down.",
+  "The staircase is overgrown with thick, thorny vines. You'll have to hack your way through to descend.",
+  "A wide, marble staircase that looks out of place in this dungeon. It smells of lavender and decay.",
+  "The steps are uneven and jagged, looking more like a natural rock formation than a constructed path.",
+  "A spiral staircase that seems to go on forever. You can't see the bottom, only an endless void.",
+  "The stairs are covered in a thick layer of dust. No one has walked here for a very, very long time.",
+  "A hidden staircase revealed behind a sliding bookcase. It smells of old paper and hidden knowledge."
+];

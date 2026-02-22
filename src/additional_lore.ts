@@ -175,5 +175,145 @@ export const ADDITIONAL_LORE: LoreEntry[] = [
     content: 'Writings that suggest humanity is a reality TV show for the Great Old Ones, and our ratings are slipping.',
     quote: '...season finale approaching...',
     author: 'Dr. Henry Armitage'
+  },
+  {
+    id: 'lore-new-26',
+    title: 'The Book of Iod',
+    content: 'A text written in a language that consists entirely of vowels. It describes the hunting habits of the Dimensional Shambler.',
+    quote: '...aeiou aeiou...',
+    author: 'Khut-Nah'
+  },
+  {
+    id: 'lore-new-27',
+    title: 'The Tablets of Nhing',
+    content: 'Clay tablets that detail the history of a race of sentient fungi. They were apparently very fun guys.',
+    quote: '...spore dispersal patterns...',
+    author: 'Unknown'
+  },
+  {
+    id: 'lore-new-28',
+    title: 'The Dhol Chants (Remix)',
+    content: 'A modern reinterpretation of the classic chants, now with a dubstep beat. It summons nothing but a headache.',
+    quote: '...wub wub wub...',
+    author: 'DJ Azathoth'
+  },
+  {
+    id: 'lore-new-29',
+    title: 'The Necronomicon (Paperback)',
+    content: 'A cheap mass-market paperback edition. The binding is terrible, and the pages fall out if you look at them wrong.',
+    quote: '...glue failure imminent...',
+    author: 'Abdul Alhazred'
+  },
+  {
+    id: 'lore-new-30',
+    title: 'The King in Yellow (Screenplay)',
+    content: 'A draft of a movie adaptation that was never made. The notes in the margins are increasingly frantic.',
+    quote: '...needs more explosions...',
+    author: 'Hollywood Executive'
+  },
+  {
+    id: 'lore-new-31',
+    title: 'The Pnakotic Manuscripts (Volume 5)',
+    content: 'This volume is just a list of Yithian grievances against the Great Old Ones. It reads like a cosmic HOA complaint.',
+    quote: '...noise violation in sector 7...',
+    author: 'Yithian Council'
+  },
+  {
+    id: 'lore-new-32',
+    title: 'The Cthulhu Mythos for Dummies',
+    content: 'A simplified guide to the horrors of the universe. It uses stick figures to explain non-Euclidean geometry.',
+    quote: '...triangle has 4 sides...',
+    author: 'Unknown'
+  },
+  {
+    id: 'lore-new-33',
+    title: 'The Dunwich Horror (Cookbook)',
+    content: 'A collection of recipes using ingredients found only in the Dunwich area. Most of them involve "strange meat".',
+    quote: '...boil until screaming stops...',
+    author: 'Lavinia Whateley'
+  },
+  {
+    id: 'lore-new-34',
+    title: 'The Shadow Over Innsmouth (Travel Guide)',
+    content: 'A brochure for the town of Innsmouth. It highlights the "unique local culture" and "fresh seafood".',
+    quote: '...visit the reef...',
+    author: 'Innsmouth Chamber of Commerce'
+  },
+  {
+    id: 'lore-new-35',
+    title: 'The Whisperer in Darkness (Podcast)',
+    content: 'A transcript of a podcast recorded by the Mi-Go. It\'s mostly buzzing sounds and complaints about the cold.',
+    quote: '...bzzzt bzzzt...',
+    author: 'Mi-Go'
+  },
+  {
+    id: 'lore-new-36',
+    title: 'The Call of Cthulhu (Ring Tone)',
+    content: 'A sheet of music for a ring tone that drives anyone who hears it mad. It was very popular in the 2000s.',
+    quote: '...ring ring ring...',
+    author: 'Unknown'
+  },
+  {
+    id: 'lore-new-37',
+    title: 'The Colour Out of Space (Paint Swatch)',
+    content: 'A card with a sample of the color. It\'s a shade of [REDACTED] that makes your eyes bleed.',
+    quote: '...new fall collection...',
+    author: 'Home Depot'
+  },
+  {
+    id: 'lore-new-38',
+    title: 'The Rats in the Walls (Exterminator Bill)',
+    content: 'An invoice for rat removal services. The total is astronomical, and the notes say "they keep coming back".',
+    quote: '...payment due upon receipt...',
+    author: 'Orkin Man'
+  },
+  {
+    id: 'lore-new-39',
+    title: 'The Haunter of the Dark (Light Bulb)',
+    content: 'A box for a light bulb that claims to banish the Haunter. It has a 1-star review.',
+    quote: '...did not work...',
+    author: 'Amazon Customer'
+  },
+  {
+    id: 'lore-new-40',
+    title: 'The Thing on the Doorstep (Doormat)',
+    content: 'A welcome mat that says "Go Away". It seems to be made of human skin.',
+    quote: '...wipe your feet...',
+    author: 'Unknown'
+  },
+  {
+    id: 'lore-new-41',
+    title: 'The Dreams in the Witch House (Blueprint)',
+    content: 'Architectural plans for the Witch House. The angles are all wrong, and the math doesn\'t add up.',
+    quote: '...impossible geometry...',
+    author: 'Keziah Mason'
+  },
+  {
+    id: 'lore-new-42',
+    title: 'The Herbert West–Reanimator (Medical Journal)',
+    content: 'A peer-reviewed paper on reanimation. It was rejected for "ethical concerns" and "lack of control group".',
+    quote: '...results were lively...',
+    author: 'Dr. Herbert West'
+  },
+  {
+    id: 'lore-new-43',
+    title: 'The Cool Air (AC Manual)',
+    content: 'Instructions for an air conditioning unit that keeps the room at absolute zero. It warns against "thawing".',
+    quote: '...maintain temperature...',
+    author: 'Dr. Muñoz'
+  },
+  {
+    id: 'lore-new-44',
+    title: 'The Pickman\'s Model (Art Critique)',
+    content: 'A review of Pickman\'s latest exhibition. The critic calls it "derivative" and "too realistic".',
+    quote: '...lacks subtlety...',
+    author: 'Art Snob'
+  },
+  {
+    id: 'lore-new-45',
+    title: 'The Outsider (Mirror)',
+    content: 'A reflective surface that shows you what you really are. You don\'t like it.',
+    quote: '...objects in mirror are closer than they appear...',
+    author: 'Unknown'
   }
 ];

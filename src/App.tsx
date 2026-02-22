@@ -26,8 +26,11 @@ import { generateLevel, getRandomFloorPos, getRandomRoomPos } from './procgen';
 import { MONSTERS, ITEMS, NPCS, LORE_ENTRIES, ENVIRONMENTAL_DETAILS } from './data';
 import { ADDITIONAL_MONSTERS } from './monsters';
 import { ADDITIONAL_LORE } from './additional_lore';
+import { ADDITIONAL_NPCS } from './additional_npcs';
 import { THEMES } from './themes';
 import { ROOM_DESCRIPTIONS, COMBAT_LOGS } from './descriptions';
+import { ALTAR_DESCRIPTIONS, CARVING_DESCRIPTIONS } from './environmental_descriptions';
+import { STAIR_DESCRIPTIONS } from './stair_descriptions';
 import { SANITY_DRAIN_LOGS, SANITY_LOSS_LOGS, LOOT_DROP_LOGS, LOW_HEALTH_LOGS, LOW_SANITY_LOGS } from './status_logs';
 import { META_COMMENTARY } from './meta_commentary';
 
@@ -86,6 +89,7 @@ export default function App() {
   const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
   const [activeLore, setActiveLore] = useState<LoreEntry | null>(null);
   const [activeDialogue, setActiveDialogue] = useState<{ npc: Entity, text: string } | null>(null);
+  const [activeStairs, setActiveStairs] = useState<{ description: string } | null>(null);
   const [showInventory, setShowInventory] = useState(false);
   const [playerAttackDir, setPlayerAttackDir] = useState<{ dx: number, dy: number } | null>(null);
   const [monsterAttack, setMonsterAttack] = useState<{ id: string, dx: number, dy: number } | null>(null);
@@ -340,7 +344,8 @@ export default function App() {
     // Spawn NPCs
     if (Math.random() > 0.5) {
       const pos = getRandomRoomPos(rawRooms);
-      const npcTemplate = NPCS[Math.floor(Math.random() * NPCS.length)];
+      const allNpcs = [...NPCS, ...ADDITIONAL_NPCS];
+      const npcTemplate = allNpcs[Math.floor(Math.random() * allNpcs.length)];
       entities.push({
         ...npcTemplate,
         id: `npc-${Date.now()}`,
@@ -349,20 +354,27 @@ export default function App() {
       } as Entity);
     }
 
-    // Spawn Environmental Details
-    for (let i = 0; i < 3; i++) {
-      const pos = getRandomFloorPos(grid);
-      const envTemplate = currentTheme 
-        ? (Math.random() > 0.3 ? currentTheme.environmentalDetails[Math.floor(Math.random() * currentTheme.environmentalDetails.length)] : ENVIRONMENTAL_DETAILS[Math.floor(Math.random() * ENVIRONMENTAL_DETAILS.length)])
-        : ENVIRONMENTAL_DETAILS[Math.floor(Math.random() * ENVIRONMENTAL_DETAILS.length)];
-      
-      entities.push({
-        ...envTemplate,
-        id: `env-${i}`,
-        type: 'environment',
-        pos
-      } as Entity);
-    }
+      // Spawn Environmental Details
+      for (let i = 0; i < 3; i++) {
+        const pos = getRandomFloorPos(grid);
+        let envTemplate = currentTheme 
+          ? (Math.random() > 0.3 ? currentTheme.environmentalDetails[Math.floor(Math.random() * currentTheme.environmentalDetails.length)] : ENVIRONMENTAL_DETAILS[Math.floor(Math.random() * ENVIRONMENTAL_DETAILS.length)])
+          : ENVIRONMENTAL_DETAILS[Math.floor(Math.random() * ENVIRONMENTAL_DETAILS.length)];
+        
+        // Apply unique descriptions for altars and carvings
+        if (envTemplate.name === 'Blood-Stained Altar') {
+           envTemplate = { ...envTemplate, description: ALTAR_DESCRIPTIONS[Math.floor(Math.random() * ALTAR_DESCRIPTIONS.length)] };
+        } else if (envTemplate.name === 'Strange Carvings') {
+           envTemplate = { ...envTemplate, description: CARVING_DESCRIPTIONS[Math.floor(Math.random() * CARVING_DESCRIPTIONS.length)] };
+        }
+
+        entities.push({
+          ...envTemplate,
+          id: `env-${i}`,
+          type: 'environment',
+          pos
+        } as Entity);
+      }
 
     const initialExplored = Array(GRID_HEIGHT).fill(0).map(() => Array(GRID_WIDTH).fill(false));
     const visible = getVisibleTiles(grid, playerPos);
@@ -475,7 +487,8 @@ export default function App() {
 
     // Stairs check
     if (gameState.grid[newPos.y][newPos.x] === 'stairs') {
-      nextLevel();
+      const description = STAIR_DESCRIPTIONS[Math.floor(Math.random() * STAIR_DESCRIPTIONS.length)];
+      setActiveStairs({ description });
       return;
     }
 
@@ -865,16 +878,25 @@ export default function App() {
       // NPCs
       if (Math.random() > 0.4) {
         const pos = getRandomRoomPos(rawRooms);
-        const npcTemplate = NPCS[Math.floor(Math.random() * NPCS.length)];
+        const allNpcs = [...NPCS, ...ADDITIONAL_NPCS];
+        const npcTemplate = allNpcs[Math.floor(Math.random() * allNpcs.length)];
         entities.push({ ...npcTemplate, id: `npc-${nextLvl}-${Date.now()}`, type: 'npc', pos } as Entity);
       }
 
       // Environment
       for (let i = 0; i < 3; i++) {
         const pos = getRandomFloorPos(grid);
-        const envTemplate = currentTheme 
+        let envTemplate = currentTheme 
           ? (Math.random() > 0.3 ? currentTheme.environmentalDetails[Math.floor(Math.random() * currentTheme.environmentalDetails.length)] : ENVIRONMENTAL_DETAILS[Math.floor(Math.random() * ENVIRONMENTAL_DETAILS.length)])
           : ENVIRONMENTAL_DETAILS[Math.floor(Math.random() * ENVIRONMENTAL_DETAILS.length)];
+
+        // Apply unique descriptions for altars and carvings
+        if (envTemplate.name === 'Blood-Stained Altar') {
+           envTemplate = { ...envTemplate, description: ALTAR_DESCRIPTIONS[Math.floor(Math.random() * ALTAR_DESCRIPTIONS.length)] };
+        } else if (envTemplate.name === 'Strange Carvings') {
+           envTemplate = { ...envTemplate, description: CARVING_DESCRIPTIONS[Math.floor(Math.random() * CARVING_DESCRIPTIONS.length)] };
+        }
+
         entities.push({ ...envTemplate, id: `env-${nextLvl}-${i}`, type: 'environment', pos } as Entity);
       }
 
@@ -911,10 +933,14 @@ export default function App() {
       if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
         e.preventDefault();
       }
-      if (activeLore || activeDialogue) {
+      if (activeLore || activeDialogue || activeStairs) {
         if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+          if (activeStairs && e.key === 'Enter') {
+             nextLevel();
+          }
           setActiveLore(null);
           setActiveDialogue(null);
+          setActiveStairs(null);
         }
         return;
       }
@@ -927,7 +953,7 @@ export default function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameState, activeLore, activeDialogue]);
+  }, [gameState, activeLore, activeDialogue, activeStairs]);
 
   if (!gameState) return <div className="bg-black h-screen flex items-center justify-center text-emerald-500 font-mono">Initializing David Foster Lovecraft...</div>;
 
@@ -1142,6 +1168,43 @@ export default function App() {
                   >
                     <ChevronRight className="w-6 h-6" />
                   </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Stairs Modal */}
+            <AnimatePresence>
+              {activeStairs && (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="absolute inset-0 bg-black/80 backdrop-blur-sm z-[70] flex items-center justify-center p-8"
+                >
+                  <div className="max-w-md w-full bg-[#0d0d0d] border border-stone-800 p-8 rounded-xl shadow-2xl text-center">
+                    <h2 className="text-xl font-bold text-stone-200 mb-4 uppercase tracking-widest">Staircase Discovered</h2>
+                    <p className="text-stone-400 italic font-serif mb-8 leading-relaxed">
+                      {activeStairs.description}
+                    </p>
+                    <p className="text-stone-500 text-xs mb-6 uppercase tracking-widest">Do you wish to descend?</p>
+                    <div className="flex gap-4 justify-center">
+                      <button 
+                        onClick={() => {
+                          nextLevel();
+                          setActiveStairs(null);
+                        }}
+                        className="px-6 py-2 bg-emerald-900/30 border border-emerald-900/50 text-emerald-400 hover:bg-emerald-900/50 transition-colors text-xs uppercase tracking-widest font-bold"
+                      >
+                        Descend [ENTER]
+                      </button>
+                      <button 
+                        onClick={() => setActiveStairs(null)}
+                        className="px-6 py-2 bg-stone-900 border border-stone-800 text-stone-400 hover:bg-stone-800 transition-colors text-xs uppercase tracking-widest font-bold"
+                      >
+                        Stay [ESC]
+                      </button>
+                    </div>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
